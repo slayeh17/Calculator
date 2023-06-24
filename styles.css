@@ -1,0 +1,70 @@
+*, *::after, *::before {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;;
+}
+
+.container {
+    max-width: 320px;
+    margin: 50px auto;
+    display: grid;
+    grid-template-columns: auto;
+    padding: 3px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: rgb(228, 228, 228);
+}
+
+button {
+    padding: 20px;
+    margin: 4px;
+    border-radius: 15px;
+    font-size: 25px;
+}
+
+.non-arithmetic-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.non-arithmetic-buttons button {
+    flex: 1;
+}
+
+.arithmetic-buttons {
+    display: grid;
+    grid-template-columns: auto auto auto auto; 
+}
+
+.clear {
+    background-color: rgb(253, 255, 120);
+}
+
+.delete {
+    background-color: rgb(255, 184, 53);
+}
+
+.non-numeric-button {
+    background-color: rgb(97, 255, 255);
+}
+
+.display {
+    min-height: 100px;
+    border: 2px solid black;
+    margin: 4px;
+    border-radius: 15px;
+    background-color: rgb(173, 173, 173);
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    margin: 3px;
+    font-size: 20px;
+    text-align: center;
+    background-color: rgb(255, 255, 133);
+}
