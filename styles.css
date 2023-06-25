@@ -1,5 +1,7 @@
 *, *::after, *::before {
     box-sizing: border-box;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 html, body {
@@ -53,6 +55,7 @@ button {
 
 .display {
     min-height: 100px;
+    width: 302px;
     border: 2px solid black;
     margin: 4px;
     border-radius: 15px;
@@ -60,6 +63,11 @@ button {
     text-align: right;
     font-size: 40px;
     padding: 8px;
+    word-wrap: break-word;
+}
+
+.equals {
+    background-color: yellow;
 }
 
 footer {
