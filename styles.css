@@ -10,12 +10,12 @@ html, body {
 }
 
 .container {
-    max-width: 320px;
+    max-width: 350px;
     margin: 50px auto;
     display: grid;
     grid-template-columns: auto;
     padding: 3px;
-    border: 2px solid black;
+    border: 3px solid rgb(82, 82, 82);
     border-radius: 15px;
     background-color: rgb(228, 228, 228);
 }
@@ -23,6 +23,7 @@ html, body {
 button {
     padding: 20px;
     margin: 4px;
+    border: 3px solid rgb(82, 82, 82);
     border-radius: 15px;
     font-size: 25px;
 }
@@ -71,8 +72,7 @@ button {
 
 .display {
     min-height: 100px;
-    width: 302px;
-    border: 2px solid black;
+    border: 3px solid rgb(82, 82, 82);
     margin: 4px;
     border-radius: 15px;
     background-color: rgb(173, 173, 173);
