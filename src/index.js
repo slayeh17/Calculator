@@ -1,87 +1,88 @@
-const display = document.querySelector(".display")
-const numButton = document.querySelectorAll(".numeric-button")
-const opButton = document.querySelectorAll(".non-numeric-button")
-const clear = document.querySelector(".clear")
-const del = document.querySelector(".delete")
-const equals = document.querySelector(".equals")
+const display = document.querySelector(".display");
+const numButton = document.querySelectorAll(".numeric-button");
+const opButton = document.querySelectorAll(".non-numeric-button");
+const clear = document.querySelector(".clear");
+const del = document.querySelector(".delete");
+const equals = document.querySelector(".equals");
 let dotCount = 0;
-let expression = ""
+let expression = "";
 
-function isOperator(op) {
-    return (op == '+' ||op == '-' ||op == '/' ||op == '*')
+function isOperator(char) {
+  return char === "+" || char === "-" || char === "*" || char === "/";
 }
 
-function precedence(op) {
-    if(op == '+' || op == '-')
+function getPrecedence(operator) {
+  if (operator === "+" || operator === "-") {
     return 1;
-    if(op == '/' || op == '*')
+  } else if (operator === "*" || operator === "/") {
     return 2;
+  }
+  return 0;
 }
 
-function checkPrecedence(currentOp,stackOp) {
-    if(precedence(currentOp) > precedence(stackOp))
-    return true;
-    else
-    return false;
-}
+function calc(expression) {
+  let postfix = "";
+  const stack = [];
 
-function calc(str) {
-    let stack = []
-    let top = -1;
-    let postfix = "";
-    for(let i=0; i<str.length; i++) {
-        if(top == -1 && isOperator(str[i]))
-        stack.push(str[i]);
-        else if(top!=-1 && isOperator(str[i])) {
-            if(checkPrecedence(str[i], stack[top]))
-            stack.push(str[i]);
-            else {
-                while(checkPrecedence(str[i], stack[top])==false)
-                postfix += stack.pop();
+  for (let i = 0; i < expression.length; i++) {
+    const char = expression[i];
 
-                stack.push(str[i]);
-            }
-        }
-        else
-        postfix += str[i];
+    if (!isOperator(char)) {
+      postfix += char;
+    } else {
+      while (
+        stack.length > 0 &&
+        getPrecedence(stack[stack.length - 1]) >= getPrecedence(char)
+      ) {
+        postfix += stack.pop();
+      }
+      stack.push(char);
     }
+  }
+
+  while (stack.length > 0) {
+    postfix += stack.pop();
+  }
+
+  return postfix;
 }
 
+numButton.forEach((button) =>
+  button.addEventListener("click", () => {
+    display.innerHTML += button.innerHTML;
+    expression += button.value;
+  })
+);
 
-numButton.forEach((button) => 
-    button.addEventListener('click', () => {
+opButton.forEach((button) =>
+  button.addEventListener("click", () => {
+    if (button.innerHTML == ".") {
+      dotCount += 1;
+      if (dotCount == 1) {
         display.innerHTML += button.innerHTML;
         expression += button.value;
-    }));
-
-opButton.forEach((button) => 
-button.addEventListener('click', () => {
-    if(button.innerHTML == '.') {
-        dotCount+=1;
-        if(dotCount==1) {
-            display.innerHTML += button.innerHTML;
-            expression += button.value;
-        }
+      }
+    } else {
+      display.innerHTML += button.innerHTML;
+      expression += button.value;
+      dotCount = 0;
     }
-    else {
-        display.innerHTML += button.innerHTML;
-        expression += button.value;
-        dotCount = 0;
-    }
-}));
+  })
+);
 
-clear.addEventListener('click', () => {
-    display.innerHTML = "";
-    expression = "";
-    dotCount = 0;
+clear.addEventListener("click", () => {
+  display.innerHTML = "";
+  expression = "";
+  dotCount = 0;
 });
 
-del.addEventListener('click', () => {
-    let len = display.innerHTML.length;
-    display.innerHTML = display.innerHTML.slice(0,len-1);
-    expression = expression.slice(0, len-1);
-})
+del.addEventListener("click", () => {
+  let len = display.innerHTML.length;
+  display.innerHTML = display.innerHTML.slice(0, len - 1);
+  expression = expression.slice(0, len - 1);
+  console.log(expression);
+});
 
-equals.addEventListener('click', () => {
-    display.innerHTML = calc(expression);
-})
+equals.addEventListener("click", () => {
+  display.innerHTML = calc(expression);
+});
