@@ -20,6 +20,34 @@ function getPrecedence(operator) {
   return 0;
 }
 
+function operate(a, b, op) {
+    if(op == '+')
+    return a + b;
+    if(op == '-')
+    return a-b
+    if(op == '*')
+    return a*b;
+    if(op == '/')
+    return a/b;
+}
+
+function evalPostfix(postfix) {
+    let stack = [];
+
+    for(let i=0; i<postfix.length; i++) {
+        const char = postfix[i];
+
+        if(!isOperator(char))
+        stack.push(Number(char));
+        else {
+            let b = stack.pop();
+            let a = stack.pop();
+            stack.push(operate(a, b, char));
+        }
+    }
+    return stack.pop();
+}
+
 function calc(expression) {
   let postfix = "";
   const stack = [];
@@ -44,7 +72,7 @@ function calc(expression) {
     postfix += stack.pop();
   }
 
-  return postfix;
+  return evalPostfix(postfix);
 }
 
 numButton.forEach((button) =>
